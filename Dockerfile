@@ -26,6 +26,7 @@ RUN apt-get update -y && apt-get upgrade -y \
 	&& sed -e 's/%sudo\(.*\)ALL$/%sudo\1NOPASSWD:ALL/g' -i /etc/sudoers \
 	&& useradd -m ${user} -s /bin/bash \
 	&& adduser ${user} ssl-cert \
+	&& usermod -aG sudo ${user} \
 	&& echo ${user}':'${password} | chpasswd \
 	&& mkdir -p /var/run/sshd && mkdir xrdp && cd xrdp && rm -rf xrdp && cd /etc/xrdp \
 	&& echo "[console]\nname=console\nlib=libvnc.so\n" >> xrdp.ini \
